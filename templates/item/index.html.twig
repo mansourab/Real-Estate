@@ -1,0 +1,33 @@
+{% extends 'profil/partials/base.html.twig' %}
+
+{% block title 'Listing de tous les biens' %}
+
+{% block body %}
+    <h2 class="mt-4 mb-4">liste des biens</h2>
+    <div class="mb-4">
+        <a href=" {{ path('item_add') }} " class="btn btn-primary">Add New Item <i class="bi bi-arrow-right"></i> </a>
+    </div>
+
+    <div class="row">
+        {% for item in items %}
+            <div class="col-xs-4 mr-2 mb-4">
+                <div class="card" style="width: 18rem;">
+                    {# <img src="{{ vich_uploader_asset(item, 'imageFile') }}" alt="{{ item.title }}" /> #}
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <a href=" {{ path('item_edit', {id: item.id}) }} ">{{ item.title }}</a>
+                        </h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                        <p class="card-text">{{ item.description }}</p>
+                        <a href="#" class="card-link">Card link</a>
+                        <a href="#" class="card-link">Another link</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="navigation">
+        {{ knp_pagination_render(items) }}
+    </div>
+{% endblock %}
+

@@ -1,0 +1,12 @@
+{% extends 'profil/partials/base.html.twig' %}
+
+{% block body %}
+	<h2>All categories</h2>
+	<div class="mt-4 mb-2">
+		<a href=" {{ path('category_create') }} " class="btn btn-primary">Add new category</a>
+	</div>
+
+	{% for category in categories %}
+		<h2><a href=""> {{ category.name }} </a></h2>
+	{% endfor %}
+{% endblock %}
