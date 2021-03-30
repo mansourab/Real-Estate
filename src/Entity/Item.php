@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Gedmo\Mapping\Annotation as Gedmo;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * @ORM\Entity(repositoryClass=ItemRepository::class)
  * @ORM\HasLifecycleCallbacks
@@ -28,6 +30,11 @@ class Item
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min=5,
+     *      minMessage="Le titre devrait avoir au minimum {{ limit }} caractères"
+     * )
      */
     private $title;
 

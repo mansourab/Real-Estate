@@ -2,9 +2,12 @@
 
 namespace App\Repository;
 
+use App\Data\SearchData;
 use App\Entity\Item;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @method Item|null find($id, $lockMode = null, $lockVersion = null)
@@ -14,38 +17,37 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ItemRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private $paginator;
+
+    public function __construct(ManagerRegistry $registry, PaginatorInterface $paginator)
     {
         parent::__construct($registry, Item::class);
+        $this->paginator = $paginator;
     }
 
-    // /**
-    //  * @return Item[] Returns an array of Item objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * recupere tous les biens en lien avec une recherche
+     * @return PaginationInterface
+     */
+    public function findSearch(SearchData $search): PaginationInterface
     {
-        return $this->createQueryBuilder('i')
-            ->andWhere('i.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('i.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $query = $this
+                    ->createQueryBuilder('i')
+                ;
+        
+        if (!empty($search->q)) {
+            $query = $query 
+                    ->andWhere('i.title LIKE :q')
+                    ->setParameter('q', "%{$search->getQ()}%")
+            ;
+        }
+        
+        $query = $query->getQuery();
+        return $this->paginator->paginate(
+            $query,
+            1,
+            8
+        );
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Item
-    {
-        return $this->createQueryBuilder('i')
-            ->andWhere('i.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 
 }
