@@ -35,7 +35,7 @@ class ItemRepository extends ServiceEntityRepository
                     ->createQueryBuilder('i')
                 ;
         
-        if (!empty($search->q)) {
+        if (!empty($search->getQ())) {
             $query = $query 
                     ->andWhere('i.title LIKE :q')
                     ->setParameter('q', "%{$search->getQ()}%")
@@ -43,9 +43,10 @@ class ItemRepository extends ServiceEntityRepository
         }
         
         $query = $query->getQuery();
+
         return $this->paginator->paginate(
             $query,
-            1,
+            $search->page,
             8
         );
     }

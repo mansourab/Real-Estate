@@ -1,15 +1,32 @@
-{% extends 'profil/partials/base.html.twig' %}
+{% extends 'index.html.twig' %}
 
 {% block body %}
 	<h2 class="text-center font-weight-light mt-4 mb-2">Editer l'Item</h2>
 
-<div class="col-md-6 m-auto">
+<div class="col-md-8 m-auto">
+	
 	{{ form_start(form) }}
-	{{ form_row(form.title) }}
-	{{ form_row(form.category) }}
-	{{ form_row(form.description) }}
-	{# {{ form_row(form.imageFile) }} #}
-	<button class="btn btn-primary">Update</button>
+		<div class="row">
+			<div class="col-md-6">
+				{{ form_row(form.title) }}
+			</div>
+			<div class="col-md-6">
+				{{ form_row(form.category) }}
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6">
+				{{ form_row(form.price) }}
+			</div>
+			<div class="col-md-6">
+				{{ form_row(form.imageFile) }}
+			</div>
+		</div>
+		{{ form_row(form.place) }}
+		{{ form_row(form.description) }}
+		<button class="btn btn-primary">Modifier l'item</button>
 	{{ form_end(form) }}
+
 </div>
 {% endblock %}

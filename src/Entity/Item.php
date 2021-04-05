@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Gedmo\Mapping\Annotation as Gedmo;
-
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -54,6 +54,13 @@ class Item
     private $user;
 
     /**
+     * @Assert\File(
+     *  maxSize="1024k",
+     *  maxSizeMessage="La taille de l'image ne doit pas dépasser 1Mo", 
+     *  mimeTypes={"image/png", "image/jpeg", "image/jpg"},
+     *  mimeTypesMessage="Please upload a valid image"
+     * )
+     * 
      * @Vich\UploadableField(mapping="item_image", fileNameProperty="image")
      * @var File|null
      */
@@ -79,6 +86,26 @@ class Item
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="items")
      */
     private $category;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $type;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $promo;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $published;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $status;
 
 
     public function getId(): ?int
@@ -115,7 +142,7 @@ class Item
         return $this->image;
     }
 
-    public function setImage(string $image)
+    public function setImage($image)
     {
         $this->image = $image;
 
@@ -142,14 +169,17 @@ class Item
     /**
      * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $imageFile
      */
-    public function setImageFile(?File $imageFile = null): void
+    public function setImageFile(File $imageFile = null)
     {
         $this->imageFile = $imageFile;
 
-        if (null !== $imageFile) {
-            $this->updatedAt = new \DateTimeImmutable();
+        if ($this->imageFile instanceof UploadedFile) {
+
+            $this->setUpdatedAt(new \DateTime('now'));
+            
         }
-        // return $this;
+
+        return $this;
     }
 
     public function getSlug(): ?string
@@ -196,6 +226,54 @@ class Item
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getPromo(): ?bool
+    {
+        return $this->promo;
+    }
+
+    public function setPromo(bool $promo): self
+    {
+        $this->promo = $promo;
+
+        return $this;
+    }
+
+    public function getPublished(): ?bool
+    {
+        return $this->published;
+    }
+
+    public function setPublished(bool $published): self
+    {
+        $this->published = $published;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }

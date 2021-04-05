@@ -14,12 +14,12 @@ class SearchData
     /**
      * @var null|string
      */
-    public $q = '';
+    private $q = '';
 
     /**
      * @var Category[]
      */
-    public $categories = [];
+    private $categories = [];
 
 
     public function getQ()
@@ -42,6 +42,18 @@ class SearchData
     public function setCategories(array $categories)
     {
         $this->categories = $categories;
+        
+        return $this;
+    }
+
+    public function getPage()
+    {
+        return $this->page;
+    }
+
+    public function setPage(int $page)
+    {
+        $this->page = $page;
         
         return $this;
     }

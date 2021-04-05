@@ -17,8 +17,17 @@ class ItemFormType extends AbstractType
             ->add('title', TextType::class, [
                 'required' => false
             ])
-            ->add('description')
             ->add('category')
+            ->add('imageFile', VichImageType::class, [
+                'required' => false,
+                'allow_delete' => false,
+                'download_uri' => false,
+                'image_uri' => false,
+                'asset_helper' => false,
+            ])
+            ->add('price')
+            ->add('place')
+            ->add('description')
         ;
     }
 

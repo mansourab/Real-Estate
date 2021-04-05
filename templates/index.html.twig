@@ -25,11 +25,11 @@
     <body>
         {% include 'layouts/navbar.html.twig' %}
 
-        {# {% for message in app.flashes('success') %}
+        {% for message in app.flashes('success') %}
             <div class="alert alert-success">
                 {{ message }}
             </div>
-        {% endfor %} #}
+        {% endfor %}
 
         <div class="container">
         {% block body %}{% endblock %}

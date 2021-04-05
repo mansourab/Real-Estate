@@ -1,20 +1,22 @@
-{% extends 'profil/partials/base.html.twig' %}
+{% extends 'index.html.twig' %}
 
 {% block title 'Listing de tous les biens' %}
 
 {% block body %}
 
-    <div class="col-md-8 mt-4 mb-0 ml-auto mr-auto">
+    <div class="col-md-6 mt-4 mb-0 ml-auto mr-auto">
         {{ form_start(form) }}
         {{ form_row(form.q)}}
-        <button class="btn btn-primary" type="submit">Search</button>
         {{ form_end(form) }}
     </div>
 
-    <h2 class="mt-4 mb-4">liste des biens</h2>
     <div class="mb-4">
-        <a href=" {{ path('item_add') }} " class="btn btn-primary">Add New Item <i class="bi bi-arrow-right"></i> </a>
+        <a href=" {{ path('item_add') }} " class="btn btn-primary">Add New Item 
+            {# <i class="bi bi-arrow-right"></i>  #}
+            <i class="bi bi-plus-circle"></i>
+        </a>
     </div>
+    <h2 class="mt-4 mb-4">liste des biens</h2>
 
     <div class="row">
         {% for item in items %}
@@ -23,10 +25,10 @@
                     {# <img src="{{ vich_uploader_asset(item, 'imageFile') }}" alt="{{ item.title }}" /> #}
                     <div class="card-body">
                         <h5 class="card-title">
-                            <a href=" {{ path('item_edit', {id: item.id}) }} ">{{ item.title }}</a>
+                            <a href=" {{ path('item_edit', {slug: item.slug}) }} ">{{ item.title }}</a>
                         </h5>
                         <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                        <p class="card-text">{{ item.description }}</p>
+                        {# <p class="card-text">{{ item.description }}</p> #}
                         <a href="#" class="card-link">Card link</a>
                         <a href="#" class="card-link">Another link</a>
                     </div>

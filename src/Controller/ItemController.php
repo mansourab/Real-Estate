@@ -12,7 +12,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Knp\Component\Pager\PaginatorInterface;
 
 
 class ItemController extends AbstractController
@@ -30,7 +29,7 @@ class ItemController extends AbstractController
     /**
      * @Route("/items", name="item_index")
      */
-    public function index(ItemRepository $repo, PaginatorInterface $paginator, Request $request): Response
+    public function index(ItemRepository $repo, Request $request): Response
     {
 
         $data = new SearchData();
@@ -52,14 +51,18 @@ class ItemController extends AbstractController
     /**
      * @Route("/item/create", name="item_add")
      */
-    public function add(Request $request)
+    public function add(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
         $item = new Item();
 
         $form = $this->createForm(ItemFormType::class, $item);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $item->setUser($this->getUser());
+
             $this->em->persist($item);
             $this->em->flush();
 
@@ -75,7 +78,7 @@ class ItemController extends AbstractController
 
 
     /**
-     * @Route("/item/edit/{id}", name="item_edit")
+     * @Route("/item/edit/{slug}", name="item_edit")
      */
     public function edit(Item $item, Request $request)
     {
@@ -95,7 +98,7 @@ class ItemController extends AbstractController
 
 
     /**
-     * @Route("/item/{id}", name="item_show")
+     * @Route("/item/{slug}", name="item_show")
      */
     public function show(Item $item)
     {

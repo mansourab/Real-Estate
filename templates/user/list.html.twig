@@ -1,0 +1,9 @@
+{% extends 'index.html.twig' %}
+
+{% block title 'Liste de tous les utilisateurs' %}
+
+{% block body %}
+	{% for user in users %}
+	<h3>{{ user.fullName }}</h3>
+	{% endfor %}
+{% endblock %}
