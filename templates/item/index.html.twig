@@ -9,31 +9,22 @@
         {{ form_row(form.q)}}
         {{ form_end(form) }}
     </div>
-
-    <div class="mb-4">
-        <a href=" {{ path('item_add') }} " class="btn btn-primary">Add New Item 
-            {# <i class="bi bi-arrow-right"></i>  #}
-            <i class="bi bi-plus-circle"></i>
-        </a>
-    </div>
+    
     <h2 class="mt-4 mb-4">liste des biens</h2>
 
     <div class="row">
         {% for item in items %}
-            <div class="col-md-3 mb-4">
-                <div class="card" style="width: 17rem;">
-                    {# <img src="{{ vich_uploader_asset(item, 'imageFile') }}" alt="{{ item.title }}" /> #}
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            <a href=" {{ path('item_edit', {slug: item.slug}) }} ">{{ item.title }}</a>
-                        </h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                        {# <p class="card-text">{{ item.description }}</p> #}
-                        <a href="#" class="card-link">Card link</a>
-                        <a href="#" class="card-link">Another link</a>
+            {% if item.published %}
+                <div class="col-md-3 mb-4">
+                    <div class="card" style="width: 17rem;">
+                    <img src=" {{ item.image }} " alt="">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ item.title }}</h5>
+                            <h3 class="card-title text-warning"> {{ item.price | number_format(0, ',', ' ')}} Fcfa</h3>
+                        </div>
                     </div>
                 </div>
-            </div>
+            {% endif %}
         {% endfor %}
     </div>
     <div class="navigation">

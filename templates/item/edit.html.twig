@@ -25,6 +25,20 @@
 		</div>
 		{{ form_row(form.place) }}
 		{{ form_row(form.description) }}
+		<div class="row">
+			<div class="col-md-4">
+				{{ form_row(form.type) }}
+			</div>
+			<div class="col-md-4">
+				{{ form_row(form.status) }}
+			</div>
+			<div class="col-md-2">
+				{{ form_row(form.promo) }}
+			</div>
+			<div class="col-md-2">
+				{{ form_row(form.published) }}
+			</div>
+		</div>
 		<button class="btn btn-primary">Modifier l'item</button>
 	{{ form_end(form) }}
 

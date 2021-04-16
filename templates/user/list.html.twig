@@ -3,7 +3,14 @@
 {% block title 'Liste de tous les utilisateurs' %}
 
 {% block body %}
-	{% for user in users %}
-	<h3>{{ user.fullName }}</h3>
-	{% endfor %}
+	<h3 class="mt-4 mb-4 ml-2">La liste des utilisateurs</h3>
+	<div class="col-md-6">
+		<ul class="list-group mt-4">
+		{% for user in users %}
+			<li class="list-group-item">{{ user.fullName }}</li>
+		{% endfor %}
+		</ul>
+	</div>
+
+
 {% endblock %}

@@ -88,6 +88,8 @@ class ItemController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->flush();
 
+            $this->addFlash('success', 'Item modifié avec succès');
+
             return $this->redirectToRoute('item_index');
         }
 
@@ -102,10 +104,28 @@ class ItemController extends AbstractController
      */
     public function show(Item $item)
     {
-        return $this->render('item/show.html.twig', [
-            'item' => $item
-        ]);
+        return $this->render('item/show.html.twig', compact('item'));
     }
 
+    /**
+     * @Route("/item/delete/{slug}", name="item_delete", methods="DELETE")
+     * @param Item $item
+     * @param EntityManagerInterface $em
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function delete(Item $item, Request $request)
+    {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+        
+        if ($this->isCsrfTokenValid('delete' .$item->getSlug(), $request->get('_token'))) {
+            $this->em->remove($item);
+            $this->em->flush();
+
+            $this->addFlash('info', 'Item supprimé avec succès');
+
+            return $this->redirectToRoute('account_index');
+        }
+        
+    }
 
 }

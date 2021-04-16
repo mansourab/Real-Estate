@@ -26,6 +26,19 @@ class ItemRepository extends ServiceEntityRepository
     }
 
     /**
+     * @return Results
+     */
+    public function findLatest()
+    {
+        $query = $this->createQueryBuilder('i')
+            ->orderBy('i.createdAt', 'DESC')
+            ->setMaxResults(5)
+        ;
+
+        return $query->getQuery()->getResult();
+    }
+
+    /**
      * recupere tous les biens en lien avec une recherche
      * @return PaginationInterface
      */
@@ -33,6 +46,7 @@ class ItemRepository extends ServiceEntityRepository
     {
         $query = $this
                     ->createQueryBuilder('i')
+                    ->orderBy('i.id', 'DESC')
                 ;
         
         if (!empty($search->getQ())) {

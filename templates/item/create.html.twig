@@ -25,7 +25,22 @@
 					{{ form_row(form.imageFile) }}
 				</div>
 			</div>
-			{{ form_row(form.place) }}
+
+			<div class="row">
+				<div class="col-md-4">
+					{{ form_row(form.type) }}
+				</div>
+				<div class="col-md-4">
+					{{ form_row(form.status) }}
+				</div>
+				<div class="col-md-2">
+					{{ form_row(form.promo) }}
+				</div>
+				<div class="col-md-2">
+					{{ form_row(form.published) }}
+				</div>
+			</div>
+			{{ form_row(form.address) }}
 			{{ form_row(form.description) }}
 			<button class="btn btn-primary" type="submit">Ajouter un nouvel item</button>
 		{{ form_end(form) }}

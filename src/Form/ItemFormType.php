@@ -4,6 +4,8 @@ namespace App\Form;
 
 use App\Entity\Item;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CheckBoxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -26,8 +28,25 @@ class ItemFormType extends AbstractType
                 'asset_helper' => false,
             ])
             ->add('price')
-            ->add('place')
+            ->add('address')
             ->add('description')
+            ->add('type', ChoiceType::class, [
+                'choices'  => [
+                    'Location' => 'Location',
+                    'Vente' => 'Vente'
+                ],
+            ])
+            ->add('promo')
+            ->add('published', CheckBoxType::class, [
+                'required' => false,
+            ])
+            ->add('status', ChoiceType::class, [
+                'choices'  => [
+                    'Terminé' => 'Terminé',
+                    'Vendu' => 'Vendu',
+                    'Disponible' => 'Disponible'
+                ],
+            ])
         ;
     }
 

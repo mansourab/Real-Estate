@@ -80,7 +80,7 @@ class Item
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $place;
+    private $address;
 
     /**
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="items")
@@ -106,6 +106,21 @@ class Item
      * @ORM\Column(type="string", length=255)
      */
     private $status;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $surface;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $room;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Quarter::class, inversedBy="items")
+     */
+    private $quarter;
 
 
     public function getId(): ?int
@@ -206,12 +221,12 @@ class Item
         return $this;
     }
 
-    public function getPlace(): ?string
+    public function getAddress(): ?string
     {
         return $this->place;
     }
 
-    public function setPlace(string $place): self
+    public function setAddress(string $place): self
     {
         $this->place = $place;
 
@@ -274,6 +289,47 @@ class Item
     public function setStatus(string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->title;
+    }
+
+    public function getSurface(): ?string
+    {
+        return $this->surface;
+    }
+
+    public function setSurface(string $surface): self
+    {
+        $this->surface = $surface;
+
+        return $this;
+    }
+
+    public function getRoom(): ?int
+    {
+        return $this->room;
+    }
+
+    public function setRoom(int $room): self
+    {
+        $this->room = $room;
+
+        return $this;
+    }
+
+    public function getQuarter(): ?Quarter
+    {
+        return $this->quarter;
+    }
+
+    public function setQuarter(?Quarter $quarter): self
+    {
+        $this->quarter = $quarter;
 
         return $this;
     }

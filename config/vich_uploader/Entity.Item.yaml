@@ -1,5 +1,0 @@
-App\Entity\Item:
-  imageFile:
-    mapping: item_image      
-    filename_property: image  
-    mime_type: imageMimeType

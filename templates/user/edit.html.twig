@@ -1,0 +1,14 @@
+{% extends 'index.html.twig' %}
+
+{% block title "Modification des informations de l'utilisateur" %}
+
+{% block body %}
+	<h1 class="text-center mt-4 mb-4">Modifiez vos informations</h1>
+
+	<div class="col-md-6 m-auto ">
+		{{ form_start(form) }}
+		{{ form_widget(form) }}
+		<button class="btn btn-primary btn-block btn-lg">Update</button>
+		{{ form_end(form) }}
+    </div>
+{% endblock %}

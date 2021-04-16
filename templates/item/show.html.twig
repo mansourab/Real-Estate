@@ -3,7 +3,6 @@
 {% block body %}
 	<img src="{{ vich_uploader_asset(item, 'imageFile') | imagine_filter('my_thumb') }}" alt="{{ item.title }}" />
 	<h2> {{ item.title }} </h2>
-	
 	<p> {{ item.description }} </p>
 
 {% endblock %}

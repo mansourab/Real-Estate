@@ -2,5 +2,53 @@
 
 {% block body %}
 	<h3 class="mt-4 mb-4">Dashboard</h3>
+	<a href="{{ path('item_add') }}" class="btn btn-secondary mb-4">+ Ajouter un nouvel item</a>
+
+	 <div class="mt-4 mb-3">
+        {{ form_start(form) }}
+        {{ form_row(form.q)}}
+        {{ form_end(form) }}
+    </div>
+
+
+	<table class="table table-striped">
+		<thead>
+			<tr>
+			<th scope="col">ID</th>
+			<th scope="col">Titre</th>
+			<th scope="col">Categorie</th>
+			<th scope="col">Utilisateur</th>
+			<th scope="col">Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+		{% for item in items %}
+			
+			<tr>
+				<th scope="row"> {{ item.id }} </th>
+				<td><a href=" {{ path('item_show', {slug: item.slug}) }} ">{{ item.title }} </a></td>
+				<td> {{ item.category }} </td>
+				<td> {{ item.user.fullName }} </td>
+
+				<td style="display: flex;">
+					<a href="{{ path('item_edit', {slug: item.slug}) }}" class="btn btn-primary"><i class="bi bi-pencil-square"></i></a>
+
+				{% if is_granted('ROLE_ADMIN') %}
+					<form action="{{ path('item_delete', {slug: item.slug}) }}"
+						method="POST" style="display: inline-block;">
+						<input type="hidden" name="_method" value="DELETE">
+						<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ item.slug) }}">
+						<button class="btn btn-danger ml-2" type="submit"><i class="bi bi-trash"></i></button>
+					</form> 
+				{% endif %}
+				</td>
+			</tr>
+
+		{% endfor %}
+		</tbody>
+	</table>
+	<div class="navigation m-auto">
+        {{ knp_pagination_render(items) }}
+    </div>
 
 {% endblock %}

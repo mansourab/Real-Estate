@@ -3,5 +3,19 @@
 {% block title 'Homepage' %}
 
 {% block body %}
-	<h1>Welcome to the homepage</h1>
+	
+	<div class="row">
+		{% for i in latest %}
+		<div class="col-md-4">
+			<div class="card" style="width: 18rem;">
+					<div class="card-body">
+						<h5 class="card-title"> {{ i.title }} </h5>
+						<p class="card-text"> {{ i.type }} </p>
+						<p class="card-text text-muted"> {{ i.status }} </p>
+					</div>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+	
 {% endblock %}
