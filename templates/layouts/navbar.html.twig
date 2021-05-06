@@ -6,12 +6,21 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
+      {% if app.user %}
+        <li class="nav-item active">
+          <a class="nav-link" href="{{ path('users_list') }}">Users</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Categories</a>
+        </li>
+        {% else %}
         <li class="nav-item active">
           <a class="nav-link" href="#">Louer</a>
         </li>
         <li class="nav-item active">
           <a class="nav-link" href="#">Vendre</a>
         </li>
+      {% endif %}
       </ul>
       <ul class="navbar-nav ml-md-auto">
         {% if app.user %}

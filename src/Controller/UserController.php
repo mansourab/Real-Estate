@@ -15,7 +15,7 @@ class UserController extends AbstractController
 {
 
     /**
-     * @Route("/user/edit/{id}", name="users_list")
+     * @Route("/user/edit/{id}", name="user_edit")
      */
     public function update(User $user, Request $request, EntityManagerInterface $em)
     {

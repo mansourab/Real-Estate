@@ -223,12 +223,12 @@ class Item
 
     public function getAddress(): ?string
     {
-        return $this->place;
+        return $this->address;
     }
 
-    public function setAddress(string $place): self
+    public function setAddress(string $address): self
     {
-        $this->place = $place;
+        $this->address = $address;
 
         return $this;
     }
